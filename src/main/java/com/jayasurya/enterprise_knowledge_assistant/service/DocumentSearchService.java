@@ -22,7 +22,7 @@ public class DocumentSearchService {
                 SearchRequest.builder()
                         .query(question)
                         .topK(5)
-                        .similarityThreshold(0.60)
+                        .similarityThreshold(0.00)
                         .build()
         );
     }
