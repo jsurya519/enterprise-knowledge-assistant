@@ -1,5 +1,6 @@
 package com.jayasurya.enterprise_knowledge_assistant.controller;
 
+import com.jayasurya.enterprise_knowledge_assistant.service.DocumentSearchService;
 import com.jayasurya.enterprise_knowledge_assistant.service.DocumentService;
 import com.jayasurya.enterprise_knowledge_assistant.service.EmbeddingService;
 import com.jayasurya.enterprise_knowledge_assistant.service.VectorStoreService;
@@ -18,10 +19,13 @@ public class DocumentController {
 
     private final DocumentService documentService;
     private final VectorStoreService vectorStoreService;
+    private final DocumentSearchService documentSearchService;
 
-    public DocumentController(DocumentService documentService, VectorStoreService vectorStoreService) {
+
+    public DocumentController(DocumentService documentService, VectorStoreService vectorStoreService, DocumentSearchService documentSearchService) {
         this.documentService = documentService;
         this.vectorStoreService = vectorStoreService;
+        this.documentSearchService = documentSearchService;
     }
 
     @PostMapping
@@ -33,5 +37,12 @@ public class DocumentController {
         vectorStoreService.saveDocuments(chunks);
 
         return "PDF processed successfully";
+    }
+
+    @PostMapping("/search")
+    public List<Document> search(
+            @RequestParam("question") String question) {
+
+        return documentSearchService.search(question);
     }
 }
