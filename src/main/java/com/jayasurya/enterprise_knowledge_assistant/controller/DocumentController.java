@@ -1,6 +1,8 @@
 package com.jayasurya.enterprise_knowledge_assistant.controller;
 
 import com.jayasurya.enterprise_knowledge_assistant.service.DocumentService;
+import com.jayasurya.enterprise_knowledge_assistant.service.EmbeddingService;
+import com.jayasurya.enterprise_knowledge_assistant.service.VectorStoreService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +17,11 @@ import java.util.List;
 public class DocumentController {
 
     private final DocumentService documentService;
+    private final VectorStoreService vectorStoreService;
 
-    public DocumentController(DocumentService documentService) {
+    public DocumentController(DocumentService documentService, VectorStoreService vectorStoreService) {
         this.documentService = documentService;
+        this.vectorStoreService = vectorStoreService;
     }
 
     @PostMapping
@@ -26,11 +30,7 @@ public class DocumentController {
         List<Document> chunks =
                 documentService.extractDocuments(file);
 
-//        for (Document document : chunks) {
-//            System.out.println("========== DOCUMENT ==========");
-//            System.out.println(document.getText());
-//            System.out.println("Metadata: " + document.getMetadata());
-//        }
+        vectorStoreService.saveDocuments(chunks);
 
         return "PDF processed successfully";
     }
