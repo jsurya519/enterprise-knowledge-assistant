@@ -31,10 +31,7 @@ public class DocumentController {
     @PostMapping
     public String uploadDocument(@RequestParam("file") MultipartFile file) {
 
-        List<Document> chunks =
-                documentService.extractDocuments(file);
-
-        vectorStoreService.saveDocuments(chunks);
+        documentService.ingestDocument(file);
 
         return "PDF processed successfully";
     }
