@@ -27,6 +27,9 @@ public class ClientChatService {
         List<Document> documents =
                 documentSearchService.search(question);
 
+        System.out.println("doc search "+ documents.size());
+
+
         if (documents.isEmpty()) {
             return "I couldn't find relevant information in the uploaded documents.";
         }
@@ -57,7 +60,9 @@ public class ClientChatService {
                 .call()
                 .content();
 
-        return answer + buildSources(documents);
+        return answer;
+
+        //return answer + buildSources(documents);
     }
 
     private String buildContext(List<Document> documents) {

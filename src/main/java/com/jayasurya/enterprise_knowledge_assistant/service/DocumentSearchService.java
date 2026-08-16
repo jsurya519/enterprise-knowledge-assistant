@@ -18,11 +18,12 @@ public class DocumentSearchService {
 
     public List<Document> search(String question) {
 
+        System.out.println("reached here");
         return vectorStore.similaritySearch(
                 SearchRequest.builder()
                         .query(question)
                         .topK(5)
-                        .similarityThreshold(0.00)
+                        .similarityThreshold(0.60)
                         .build()
         );
     }
