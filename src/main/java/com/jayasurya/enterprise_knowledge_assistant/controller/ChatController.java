@@ -1,10 +1,7 @@
 package com.jayasurya.enterprise_knowledge_assistant.controller;
 
 import com.jayasurya.enterprise_knowledge_assistant.service.*;
-import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.ai.document.Document;
 
 
 
@@ -19,7 +16,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public String chat(@RequestBody String question) {
+    public String chat(@RequestParam String question) {
         return clientChatService.ask(question);
     }
 }
